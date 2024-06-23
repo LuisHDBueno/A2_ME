@@ -1,0 +1,16 @@
+Nome_Coluna,Tipo
+Esta_na_Capa,Categorico
+Grupo,Categorico
+Subgrupo,Categorico
+Primeiro_Capitulo,Categorico
+Ultimo_Capitulo,Categorico
+Porcentagem_de_Capitulos_do_Volume,Continuo
+E_a_Primeira_Aparicao_no_manga,Categorico
+Distancia_da_Primeira_Aparicao_em_capitulos,Continuo
+Numero_total_de_capitulos_que_apareceu,Continuo
+Numero_de_capitulos_ate_o_volume,Continuo
+Nome_do_Personagem,Categorico
+Volume,Categorico
+Numero_de_Capitulos_no_Volume,Continuo
+Distancia_da_Primeira_Aparicao_em_volumes,Continuo
+Volume_num,Continuo

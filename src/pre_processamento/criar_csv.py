@@ -43,17 +43,17 @@ for volume, conteudo in personagens_capa.items():
                         personagens_volume[personagem] = {
                             "Grupo": grupo,
                             "Subgrupo": subgrupo_nome,
-                            "Primeiro Capitulo no Volume": capitulo,
-                            "Ultimo Capitulo no Volume": capitulo,
+                            "Primeiro Capitulo no Volume": 1 if capitulo == capitulos[0] else 0,
+                            "Ultimo Capitulo no Volume": 0,
                             "Numero de Capitulos no Volume": 1,
                             "E a Primeira Aparicao no manga": 0,
                             "Distancia da Primeira Aparicao em volumes": 0,
                             "Numero total de capitulos que apareceu": 1,
-                            "Numero de capitulos ate o volume": 0
+                            "Numero de capitulos ate o volume": int(capitulos[0]) - 1
                         }
                         
                     else:
-                        personagens_volume[personagem]["Ultimo Capitulo no Volume"] = capitulo
+                        personagens_volume[personagem]["Ultimo Capitulo no Volume"] = 1 if capitulo == capitulos[-1] else 0
                         personagens_volume[personagem]["Numero de Capitulos no Volume"] += 1
                         personagens_volume[personagem]["Numero total de capitulos que apareceu"] += 1
 
@@ -86,6 +86,17 @@ for volume, personagens in personagens_unicos_por_volume.items():
             "Volume": volume,
             "Numero de Capitulos no Volume": conteudo["Numero de Capitulos no Volume"]
         }, ignore_index=True)
+
+# Consertando E a Primeira Aparicao no manga
+df.sort_values(by=["Volume", "Nome do Personagem"], inplace=True)
+df.reset_index(drop=True, inplace=True)
+for i in range(1, len(df)):
+    if df.loc[i, "Nome do Personagem"] == df.loc[i - 1, "Nome do Personagem"]:
+        df.loc[i, "E a Primeira Aparicao no manga"] = 0
+        df.loc[i, "Distancia da Primeira Aparicao em volumes"] = df.loc[i, "Volume_num"] - df.loc[i - 1, "Volume_num"]
+    else:
+        df.loc[i, "E a Primeira Aparicao no manga"] = 1
+        df.loc[i, "Distancia da Primeira Aparicao em volumes"] = 0
 
 soma = 0
 for volume, conteudo in personagens_capa.items():

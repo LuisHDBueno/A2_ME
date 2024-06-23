@@ -100,13 +100,13 @@ for i in range(1, len(df)):
 
 soma = 0
 for volume, conteudo in personagens_capa.items():
-    personagens_capa_volume = conteudo["personagens"]
+    personagens_volume = personagens_unicos_por_volume[volume].keys()
     n_personagens = len(conteudo["personagens"])
     n_capitulos = len(conteudo["capitulos"])
     df_volume = df[df["Volume"] == volume]
-    for personagem in personagens_capa_volume:
+    for personagem in personagens_volume:
         soma += 1
-        df.loc[(df["Volume"] == volume) & (df["Nome do Personagem"] == personagem), "Esta na Capa"] = 1
+        df.loc[(df["Volume"] == volume) & (df["Nome do Personagem"] == personagem), "Esta na Capa"] = 1 if personagem in conteudo["personagens"] else 0
         df.loc[(df["Volume"] == volume) & (df["Nome do Personagem"] == personagem), "Porcentagem de Capitulos do Volume"] \
             = df_volume.loc[df_volume["Nome do Personagem"] == personagem, "Numero de Capitulos no Volume"] / n_capitulos
         
